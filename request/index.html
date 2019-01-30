@@ -7,7 +7,7 @@
 	<script type="text/javascript">
 		var storageKey = null;
 		var nbDroneSelected = 0;
-	var config = {
+	/*var config = {
 	  relayURL: "ws://192.168.43.59:8000"
 	};
 	var arrayDrones = [0,0,0,0];
@@ -31,7 +31,7 @@
 			}
 		}
 		document.getElementById('div3').innerHTML = "finish loading";
-	}
+	}*/
 	
 	function processSelect( index, name, iddiv)
 	{
@@ -69,7 +69,9 @@
 					   //if (xhr === undefined)
 					   //console.log("Not declared");
 					   //console.log(xhr.open('POST', url));
-					   //PandaBridge.send(name);
+					   
+					   PandaBridge.send(name);
+					   
 					   //document.getElementById('div2').innerHTML = "loading";					  
 					   
 	}
@@ -97,16 +99,14 @@
 			socket.send(arrayDrones[0] + ',' + arrayDrones[1] + ',' + arrayDrones[2] + ',' + arrayDrones[3]);
 		});
 
-	});
-
-
-					   //Ceci est un test
+					   });
+					   
 	</script>
 </head>
 <body style="color:white">
   <div id="div1">
     Waiting for load
-    <button onclick="postReq('192.168.43.59:8000/login', 'PostRequest')"/>
+    <button onclick="postReq('http://192.168.43.59:8000/login', 'PostRequest')"/>
         </div>
   <div id="div2">
         </div>
