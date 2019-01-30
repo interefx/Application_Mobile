@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
+    <meta charset="UTF-8"> 
 	<title></title>
 	<script src="./panda-bridge-3.0.3.min.js"></script>
-	 <script src="./jquery-3.3.1.min" type="text/javascript"></script>
+	 <script src="./jquery-3.3.1.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		var storageKey = null;
 		var nbDroneSelected = 0;
@@ -77,29 +78,30 @@
 	}
 
 	PandaBridge.init(function() {
-					   PandaBridge.onLoad(function(pandaData) {
-
+		PandaBridge.onLoad(function(pandaData) {
+					   
 					   });
-   PandaBridge.listen('Post', function(event) {
-	   document.getElementById('div1').innerHTML = "loading";					  
-	   postReq('http://192.168.43.59:8000/login', 'PostRequest');
+		PandaBridge.listen('Post', function(event) {
+			document.getElementById('div1').innerHTML = "loading";					  
+			postReq('http://192.168.43.59:8000/login', 'PostRequest');
 					   
 		});
-	PandaBridge.listen('Space', function(event) {
-			 processSelect( 1, 'SpaceSelect', 'div5');
+					   
+		/*PandaBridge.listen('Space', function(event) {
+			processSelect( 1, 'SpaceSelect', 'div5');
 		});
-	PandaBridge.listen('Furtif', function(event) {
-			 processSelect( 2, 'FurtifSelect', 'div6');
+		PandaBridge.listen('Furtif', function(event) {
+			processSelect( 2, 'FurtifSelect', 'div6');
 		});
-	PandaBridge.listen('US', function(event) {
-			 processSelect( 3, 'USSelect', 'div7');
+		PandaBridge.listen('US', function(event) {
+			processSelect( 3, 'USSelect', 'div7');
 		});
 		PandaBridge.listen('SendChoice', function(event) {
 			initialise();
 			socket.send(arrayDrones[0] + ',' + arrayDrones[1] + ',' + arrayDrones[2] + ',' + arrayDrones[3]);
-		});
+		});*/
 
-					   });
+	});
 					   
 	</script>
 </head>
