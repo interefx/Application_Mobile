@@ -1,0 +1,71 @@
+{
+  "version": "2.0.0",
+  "main": "index.html",
+
+  "events": [
+	  {
+      "id": "USSelect",
+      "name": "US is selected",
+      "locale_name": {
+        "fr_FR": "US passe à l'état séléctionné"
+      }
+    },
+    {
+      "id": "PostRequest",
+      "name": "Zirk Serv",
+      "locale_name": {
+        "fr_FR": "Post sur Zirk serv"
+      }
+    }
+  ],
+
+  "properties": [
+    
+  ],
+
+  "actions": [
+    {
+      "id": "Post",
+      "name": "Zirk Serv",
+      "locale_name": {
+        "fr_FR": "Post sur Zirk serv"
+      }
+    },
+	{
+      "id": "US",
+      "name": "Select US drone",
+      "locale_name": {
+        "fr_FR": "Selectionner le drone US"
+      }
+    },
+	{
+      "id": "Steampunk",
+      "name": "Select Steampunk drone",
+      "locale_name": {
+        "fr_FR": "Selectionner le drone Steampunk"
+      }
+    },
+	{
+      "id": "Furtif",
+      "name": "Select Furtif drone",
+      "locale_name": {
+        "fr_FR": "Selectionner le drone Furtif"
+      }
+    },
+	{
+      "id": "Space",
+      "name": "Select Space drone",
+      "locale_name": {
+        "fr_FR": "Selectionner le drone Space"
+      }
+    },
+	{
+      "id": "SendChoice",
+      "name": "Send choice",
+      "locale_name": {
+        "fr_FR": "Envoyer selection"
+      }
+    }
+   ]
+
+}

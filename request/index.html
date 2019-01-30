@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="./panda-bridge-3.0.3.min.js"></script>
+	 <script src="./jquery-3.3.1.min" type="text/javascript"></script>
+	<script type="text/javascript">
+		var storageKey = null;
+		var nbDroneSelected = 0;
+	var config = {
+	  relayURL: "ws://192.168.43.59:8000"
+	};
+	var arrayDrones = [0,0,0,0];
+	
+	var socket = new WebSocket(config.relayURL);
+	function initialise()
+	{
+		document.getElementById('div1').innerHTML = "loading";
+		socket.onopen = function () {
+			socket.send("Connect");
+		}
+		socket.onmessage = function (event) {
+			document.getElementById('div2').innerHTML  = event.data;
+			if (!connected && event.data == 'connected') {
+				document.getElementById('div2').innerHTML  = "received connected";
+				connected = true;
+				socket.onmessage = function (event) {
+					document.getElementById('div1').innerHTML  =event.data;
+					document.getElementById('div2').innerHTML  = config.relayURL;
+				}
+			}
+		}
+		document.getElementById('div3').innerHTML = "finish loading";
+	}
+	
+	function processSelect( index, name, iddiv)
+	{
+	document.getElementById('div3').innerHTML = "start arrayDrones[ " + index + " ] : " + arrayDrones[index] ;
+		if( arrayDrones[index] == 1 )
+		{
+			arrayDrones[index] = 0;
+			PandaBridge.send(name);
+			
+			document.getElementById(iddiv).innerHTML = "Unselect " + name;
+			nbDroneSelected--;
+		}
+		else if( nbDroneSelected < 2 )
+		{
+			arrayDrones[index]=1;
+			PandaBridge.send(name);
+			document.getElementById(iddiv).innerHTML = "selection  : " + name + "  " + arrayDrones[index];
+			nbDroneSelected++;
+		}
+		else
+		{
+			document.getElementById(iddiv).innerHTML = "cannot select " + name ;
+		}
+		document.getElementById('div3b').innerHTML = "end arrayDrones[ " + index + " ] : " + arrayDrones[index] ;
+	document.getElementById('div2').innerHTML = "end process, nbDroneSelected  : " + nbDroneSelected;
+	}
+
+		function postReq(url, name) {
+					   var req = new XMLHttpRequest();
+					   req.open("POST", url, false);
+					   req.send(null);
+					   console.log(req.responseText);
+					   document.getElementById('div2').innerHTML = "request sent";
+					   //var xhr = new XMLHttpRequest();
+					   //if (xhr === undefined)
+					   //console.log("Not declared");
+					   //console.log(xhr.open('POST', url));
+					   //PandaBridge.send(name);
+					   //document.getElementById('div2').innerHTML = "loading";					  
+					   
+	}
+
+	PandaBridge.init(function() {
+					   PandaBridge.onLoad(function(pandaData) {
+
+					   });
+   PandaBridge.listen('Post', function(event) {
+	   document.getElementById('div1').innerHTML = "loading";					  
+	   postReq('http://192.168.43.59:8000/login', 'PostRequest');
+					   
+		});
+	PandaBridge.listen('Space', function(event) {
+			 processSelect( 1, 'SpaceSelect', 'div5');
+		});
+	PandaBridge.listen('Furtif', function(event) {
+			 processSelect( 2, 'FurtifSelect', 'div6');
+		});
+	PandaBridge.listen('US', function(event) {
+			 processSelect( 3, 'USSelect', 'div7');
+		});
+		PandaBridge.listen('SendChoice', function(event) {
+			initialise();
+			socket.send(arrayDrones[0] + ',' + arrayDrones[1] + ',' + arrayDrones[2] + ',' + arrayDrones[3]);
+		});
+
+	});
+
+
+					   //Ceci est un test
+	</script>
+</head>
+<body style="color:white">
+  <div id="div1">
+    Waiting for load
+    <button onclick="postReq('192.168.43.59:8000/login', 'PostRequest')"/>
+        </div>
+  <div id="div2">
+        </div>
+		<div id="div3">
+        </div>
+		<div id="div3b">
+        </div><div id="div4">
+        </div><div id="div5">
+        </div>
+        </div><div id="div6">
+        </div>
+        </div><div id="div7">
+        </div>
+</body>
+</html>
