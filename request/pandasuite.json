@@ -4,27 +4,41 @@
 
   "events": [
 	  {
-      "id": "USSelect",
-      "name": "US is selected",
-      "locale_name": {
-        "fr_FR": "US passe à l'état séléctionné"
-      }
-    },
-    {
       "id": "PostRequest",
       "name": "Zirk Serv",
       "locale_name": {
-        "fr_FR": "Post sur Zirk serv"
+        "fr_FR": "Post sur Zirk serveur"
       }
     },
     {
-      "id": "ClickRequest",
-      "name": "click on Zirk serveur",
+      "id": "ClickRequest1",
+      "name": "Zirk click1",
       "locale_name": {
-        "fr_FR": "Click sur Zirk servur"
+        "fr_FR": "Click sur Zirk serveur"
       }
-     }
-  ],
+     },
+     {
+       "id": "ClickRequest2",
+       "name": "Zirk click2",
+       "locale_name": {
+         "fr_FR": "Click sur Zirk serveur"
+       }
+      },
+     {
+       "id": "ShakeRequest",
+       "name": "Zirk shake",
+       "locale_name": {
+         "fr_FR": "Shake sur Zirk serveur"
+       }
+      },
+      {
+        "id": "PingRequest",
+        "name": "Zirk ping",
+        "locale_name": {
+          "fr_FR": "Ping sur Zirk serveur"
+        }
+       }
+   ],
 
   "properties": [
     
@@ -39,38 +53,31 @@
       }
     },
     {
-      "id": "Click",
-      "name": "click on Zirk serveur",
+      "id": "Click1",
+      "name": "Zirk click1",
       "locale_name": {
         "fr_FR": "Click sur Zirk serveur"
       }
     },
-	{
-      "id": "US",
-      "name": "Select US drone",
+    {
+      "id": "Click2",
+      "name": "Zirk click2",
       "locale_name": {
-        "fr_FR": "Selectionner le drone US"
+        "fr_FR": "Click sur Zirk serveur"
       }
     },
-	{
-      "id": "Steampunk",
-      "name": "Select Steampunk drone",
+    {
+      "id": "Shake",
+      "name": "Zirk shake",
       "locale_name": {
-        "fr_FR": "Selectionner le drone Steampunk"
+        "fr_FR": "Shake sur Zirk serveur"
       }
     },
-	{
-      "id": "Furtif",
-      "name": "Select Furtif drone",
+    {
+      "id": "Ping",
+      "name": "Zirk ping",
       "locale_name": {
-        "fr_FR": "Selectionner le drone Furtif"
-      }
-    },
-	{
-      "id": "Space",
-      "name": "Select Space drone",
-      "locale_name": {
-        "fr_FR": "Selectionner le drone Space"
+        "fr_FR": "Ping sur Zirk serveur"
       }
     },
 	{

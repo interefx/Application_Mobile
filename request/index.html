@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
+	<script type="text/javascript" src="https://cdn.rawgit.com/alexgibson/shake.js/master/shake.js"></script>
 	<script src="./panda-bridge-3.0.3.min.js"></script>
 	<script src="./jquery-3.3.1.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
@@ -13,13 +14,16 @@
 		var token = null;
 		var storageKey = null;
 		var nbDroneSelected = 0;
+		var intervalId;
+		var clickId = null;
 
 		function postReq(url, name) {
 			var req = new XMLHttpRequest();
-			req.onreadystatechange = function() {
+			req.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
 					document.getElementById("div2").innerHTML = this.responseText;
 					token = JSON.parse(req.responseText)["token"];
+					intervalId = setInterval(ping, 300, url);
 					document.getElementById("div2").innerHTML = token;
 				}
 			}
@@ -30,7 +34,32 @@
 			PandaBridge.send(name);
 		}
 
-		function postClick(url, name) {
+
+		function ping(url) {
+			var req = new XMLHttpRequest();
+			req.onreadystatechange = function () {
+				if (this.readyState == 4 && this.status == 200) {
+					ping(url);
+					info = JSON.parse(req.responseText)["token"];
+					if (info["moduleId"] != undefined) {
+						if (moduleId == 1) {}
+						if (moduleId == 2) {}
+						if (moduleId == 3) {}
+						if (moduleId == 4) {}
+						if (moduleId == 5) {}
+					}
+				} else if (this.readyState == 4) {
+					token = null;
+					clearInterval(intervalId);
+				}
+			}
+			req.open("GET", url + '/ping?token=' + token, false);
+			req.send(null);
+			console.log(req.responseText);
+			PandaBridge.send(name);
+		}
+		/*function postFaction(url, name)
+		{
 			var req = new XMLHttpRequest();
 			req.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
@@ -42,7 +71,21 @@
 			console.log(req.responseText);
 			document.getElementById('div2').innerHTML = req.responseText;
 			PandaBridge.send(name);
+		}*/
+		function postClick(url, name) {
+			var req = new XMLHttpRequest();
+			req.onreadystatechange = function () {
+				if (this.readyState == 4 && this.status == 200) {
+					document.getElementById("div3").innerHTML = this.responseText;
+				}
+			}
+			req.open("POST", url, false);
+			req.send(null);
+			console.log(req.responseText);
+			document.getElementById('div2').innerHTML = req.responseText;
+			PandaBridge.send(name);
 		}
+
 
 		PandaBridge.init(function () {
 			PandaBridge.onLoad(function (pandaData) {
@@ -50,14 +93,73 @@
 				postReq(urlApi + '/login', 'PostRequest');
 			});
 
-			PandaBridge.listen('Click', function (event) {
+			/*PandaBridge.listen('Faction', function (event) {
 				if (this.readyState == 4 && this.status == 403) {
 					postReq(urlApi + '/login', 'PostRequest');
 				}
 				else {
 				document.getElementById('div1').innerHTML = "loading";
-					postClick(urlApi + '/click?token=' + token, 'PostRequest');
+					postClick(urlApi + '/faction?token=' + token, 'PostRequest');
 			}
+			});*/
+
+			PandaBridge.listen('Ping', function (event) {
+				if (this.readyState == 4 && this.status == 403) {
+					postReq(urlApi + '/login', 'PostRequest');
+				}
+				else {
+					document.getElementById('div1').innerHTML = "loading";
+					postClick(urlApi + '/ping?token=' + token, 'pingRequest');
+				}
+			});
+
+			PandaBridge.listen('Click1', function (event) {
+				if (this.readyState == 4 && this.status == 403) {
+					postReq(urlApi + '/login', 'PostRequest');
+				}
+				else {
+					clickId = 1;
+					document.getElementById('div1').innerHTML = "loading";
+					postClick(urlApi + '/click?token=' + token + "&clickId=" + clickId, 'ClickRequest1');
+				}
+			});
+
+			PandaBridge.listen('Click2', function (event) {
+				if (this.readyState == 4 && this.status == 403) {
+					postReq(urlApi + '/login', 'PostRequest');
+				}
+				else {
+					clickId = 2;
+					document.getElementById('div1').innerHTML = "loading";
+					postClick(urlApi + '/click?token=' + token + "&clickId=" + clickId, 'ClickRequest2');
+				}
+			});
+
+			PandaBridge.listen('Shake', function (event) {
+
+				//check if shake is supported or not.
+				if (!("ondevicemotion" in window)) {
+					alert("Not Supported");
+				}
+				
+				var shakeEvent = new Shake({ threshold: 15 });
+				shakeEvent.start();
+				window.addEventListener('shake', function () {
+					alert("Shaking");
+					if (this.readyState == 4 && this.status == 403) {
+						postReq(urlApi + '/login', 'PostRequest');
+					}
+					else {
+						document.getElementById('div1').innerHTML = "loading";
+						postClick(urlApi + '/shake?token=' + token + "&clickId" + clickId, 'ShakeRequest');
+					}
+
+				}, false);
+
+				//stop listening
+				function stopShake() {
+					shakeEvent.stop();
+				}
 			});
 		});
 
