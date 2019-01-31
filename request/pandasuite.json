@@ -24,7 +24,63 @@
       }
     },
     {
-      "id": "StateChangeRequest",
+      "id": "StateChangeMainRequest",
+      "name": "event State change",
+      "locale_name": {
+        "fr_FR": "ce module est censé apparaitre"
+      }
+    },
+    {
+      "id": "StateChangeDefaultRequest",
+      "name": "event State change",
+      "locale_name": {
+        "fr_FR": "ce module est censé apparaitre"
+      }
+    },
+    {
+      "id": "StateChangeChoiceRequest",
+      "name": "event State change",
+      "locale_name": {
+        "fr_FR": "ce module est censé apparaitre"
+      }
+    },
+    {
+      "id": "StateChangeOkChoiceRequest",
+      "name": "event State change",
+      "locale_name": {
+        "fr_FR": "ce module est censé apparaitre"
+      }
+    },
+    {
+      "id": "StateChangeNoChoiceRequest",
+      "name": "event State change",
+      "locale_name": {
+        "fr_FR": "ce module est censé apparaitre"
+      }
+    },
+    {
+      "id": "StateChangeShakeRequest",
+      "name": "event State change",
+      "locale_name": {
+        "fr_FR": "ce module est censé apparaitre"
+      }
+    },
+    {
+      "id": "StateChangeOkShakeRequest",
+      "name": "event State change",
+      "locale_name": {
+        "fr_FR": "ce module est censé apparaitre"
+      }
+    },
+    {
+      "id": "StateChangeNoShakeRequest",
+      "name": "event State change",
+      "locale_name": {
+        "fr_FR": "ce module est censé apparaitre"
+      }
+    },
+    {
+      "id": "StateChangeCreditsRequest",
       "name": "event State change",
       "locale_name": {
         "fr_FR": "ce module est censé apparaitre"

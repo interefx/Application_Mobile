@@ -41,11 +41,15 @@
 				if (this.readyState == 4 && this.status == 200) {
 					info = JSON.parse(req.responseText)["token"];
 					if (info["moduleId"] != undefined) {
-						if (moduleId == 1) {}
-						if (moduleId == 2) {}
-						if (moduleId == 3) {}
-						if (moduleId == 4) {}
-						if (moduleId == 5) {}
+						if (moduleId == 1) { PandaBridge.send('StateChangeMainRequest'); }
+						if (moduleId == 2) { PandaBridge.send('StateChangeDefault'); }
+						if (moduleId == 3) { PandaBridge.send('StateChangeChoiceRequest'); }
+						if (moduleId == 4) { PandaBridge.send('StateChangeOkChoiceRequest'); }
+						if (moduleId == 5) { PandaBridge.send('StateChangeNoChoiceRequest'); }
+						if (moduleId == 6) { PandaBridge.send('StateChangeShakeRequest'); }
+						if (moduleId == 7) { PandaBridge.send('StateChangeOkShakeRequest'); }
+						if (moduleId == 8) { PandaBridge.send('StateChangeNoShakeRequest'); }
+						if (moduleId == 9) { PandaBridge.send('StateChangeCreditsRequest'); }
 					}
 				} else if (this.readyState == 4) {
 					token = null;
@@ -105,7 +109,6 @@
 
 
 			PandaBridge.listen('Click1', function (event) {
-				PandaBridge.send('StateChange');
 				if (this.readyState == 4 && this.status == 403) {
 					postReq(urlApi + '/login', 'PostRequest');
 					PandaBridge.send('PostReq');
@@ -129,7 +132,7 @@
 			});
 
 			PandaBridge.listen('Shake', function (event) {
-				
+				//check if shake is supported or not.
 				var shakeEvent = new Shake({ threshold: 15 });
 				shakeEvent.start();
 				window.addEventListener('shake', function () {
