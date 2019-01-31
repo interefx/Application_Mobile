@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
-	<script type="text/javascript" src="https://cdn.rawgit.com/alexgibson/shake.js/master/shake.js"></script>
+	<script type="text/javascript" src="./shake.js"></script>
 	<script src="./panda-bridge-3.0.3.min.js"></script>
 	<script src="./jquery-3.3.1.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
@@ -23,7 +23,7 @@
 				if (this.readyState == 4 && this.status == 200) {
 					document.getElementById("div2").innerHTML = this.responseText;
 					token = JSON.parse(req.responseText)["token"];
-					intervalId = setInterval(ping, 300, url);
+					//intervalId = setInterval(ping, 300, url);
 					document.getElementById("div2").innerHTML = token;
 				}
 			}
@@ -80,7 +80,7 @@
 			var req = new XMLHttpRequest();
 			req.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
-					document.getElementById("div3").innerHTML = this.responseText;
+					document.getElementById("div3").innerHTML = url;
 				}
 			}
 			req.open("POST", url, false);
@@ -92,11 +92,15 @@
 
 
 		PandaBridge.init(function () {
-			
+
 			PandaBridge.onLoad(function (pandaData) {
 				document.getElementById('div1').innerHTML = "loading";
 				postReq(urlApi + '/login', 'PostRequest');
+				var shakeEvent = new Shake({ threshold: 15 });
+				shakeEvent.start;
+				shakeEvent.addEventListener('shake', function () { alert("Shaking"); }, false);
 			});
+
 			PandaBridge.listen('Ping', function (event) {
 				if (this.readyState == 4 && this.status == 403) {
 					postReq(urlApi + '/login', 'PostRequest');
@@ -111,12 +115,12 @@
 			PandaBridge.listen('Click1', function (event) {
 				if (this.readyState == 4 && this.status == 403) {
 					postReq(urlApi + '/login', 'PostRequest');
-					PandaBridge.send('PostReq');
+					PandaBridge.send('PostRequest');
 				}
 				else {
 					clickId = 1;
 					document.getElementById('div1').innerHTML = "loading";
-					postClick(urlApi + '/click?token=' + token + "&clickId=" + clickId, 'ClickRequest1');
+					postClick(urlApi + '/click?token=' + token + '&clickId=' + clickId, 'ClickRequest1');
 				}
 			});
 
@@ -125,7 +129,7 @@
 					postReq(urlApi + '/login', 'PostRequest');
 				}
 				else {
-					clickId = 2;
+					clickId = 0;
 					document.getElementById('div1').innerHTML = "loading";
 					postClick(urlApi + '/click?token=' + token + "&clickId=" + clickId, 'ClickRequest2');
 				}
@@ -134,16 +138,15 @@
 			PandaBridge.listen('Shake', function (event) {
 				//check if shake is supported or not.
 				var shakeEvent = new Shake({ threshold: 15 });
-				shakeEvent.start();
-				window.addEventListener('shake', function () {
+				shakeEvent.start;
+				shakeEvent.addEventListener('shake', function () {
 					alert("Shaking");
 					if (this.readyState == 4 && this.status == 403) {
 						postReq(urlApi + '/login', 'PostRequest');
 					}
 					else {
-						clickId = 0;
 						document.getElementById('div1').innerHTML = "loading";
-						postClick(urlApi + '/shake?token=' + token + "&clickId" + clickId, 'ShakeRequest');
+						postClick(urlApi + '/click?token=' + token + "&clickId" + clickId, 'ShakeRequest');
 					}
 
 				}, false);
@@ -152,7 +155,7 @@
 				function stopShake() {
 					shakeEvent.stop();
 				}
-				
+
 				//check if shake is supported or not.
 				if (!("ondevicemotion" in window)) {
 					alert("Not Supported");
