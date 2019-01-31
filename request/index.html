@@ -41,15 +41,15 @@
 				if (this.readyState == 4 && this.status == 200) {
 					info = JSON.parse(req.responseText)["token"];
 					if (info["moduleId"] != undefined) {
-						if (moduleId == 1) { PandaBridge.send('StateChangeMainRequest'); }
-						if (moduleId == 2) { PandaBridge.send('StateChangeDefault'); }
-						if (moduleId == 3) { PandaBridge.send('StateChangeChoiceRequest'); }
-						if (moduleId == 4) { PandaBridge.send('StateChangeOkChoiceRequest'); }
-						if (moduleId == 5) { PandaBridge.send('StateChangeNoChoiceRequest'); }
-						if (moduleId == 6) { PandaBridge.send('StateChangeShakeRequest'); }
-						if (moduleId == 7) { PandaBridge.send('StateChangeOkShakeRequest'); }
-						if (moduleId == 8) { PandaBridge.send('StateChangeNoShakeRequest'); }
-						if (moduleId == 9) { PandaBridge.send('StateChangeCreditsRequest'); }
+						if (moduleId == 0) { PandaBridge.send('StateChangeMainRequest'); }
+						if (moduleId == -1) { PandaBridge.send('StateChangeDefault'); }
+						if (moduleId == 1) { PandaBridge.send('StateChangeChoiceRequest'); }
+						if (moduleId == 2) { PandaBridge.send('StateChangeOkChoiceRequest'); }
+						if (moduleId == 3) { PandaBridge.send('StateChangeNoChoiceRequest'); }
+						if (moduleId == 4) { PandaBridge.send('StateChangeShakeRequest'); }
+						if (moduleId == 5) { PandaBridge.send('StateChangeOkShakeRequest'); }
+						if (moduleId == 6) { PandaBridge.send('StateChangeNoShakeRequest'); }
+						if (moduleId == 7) { PandaBridge.send('StateChangeCreditsRequest'); }
 					}
 				} else if (this.readyState == 4) {
 					token = null;
