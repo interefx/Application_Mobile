@@ -1,92 +1,100 @@
 {
   "version": "2.0.0",
   "main": "index.html",
-
   "events": [
-	  {
+    {
       "id": "PostRequest",
-      "name": "Zirk Serv",
+      "name": "event Zirk Serv",
       "locale_name": {
         "fr_FR": "Post sur Zirk serveur"
       }
     },
     {
       "id": "ClickRequest1",
-      "name": "Zirk click1",
+      "name": "event Zirk click1",
       "locale_name": {
         "fr_FR": "Click sur Zirk serveur"
       }
-     },
-     {
-       "id": "ClickRequest2",
-       "name": "Zirk click2",
-       "locale_name": {
-         "fr_FR": "Click sur Zirk serveur"
-       }
-      },
-     {
-       "id": "ShakeRequest",
-       "name": "Zirk shake",
-       "locale_name": {
-         "fr_FR": "Shake sur Zirk serveur"
-       }
-      },
-      {
-        "id": "PingRequest",
-        "name": "Zirk ping",
-        "locale_name": {
-          "fr_FR": "Ping sur Zirk serveur"
-        }
-       }
-   ],
-
-  "properties": [
-    
+    },
+    {
+      "id": "ClickRequest2",
+      "name": "event Zirk click2",
+      "locale_name": {
+        "fr_FR": "Click sur Zirk serveur"
+      }
+    },
+    {
+      "id": "StateChangeRequest",
+      "name": "event State change",
+      "locale_name": {
+        "fr_FR": "ce module est censé apparaitre"
+      }
+    },
+    {
+      "id": "ShakeRequest",
+      "name": "event Zirk shake",
+      "locale_name": {
+        "fr_FR": "Shake sur Zirk serveur"
+      }
+    },
+    {
+      "id": "PingRequest",
+      "name": "event Zirk ping",
+      "locale_name": {
+        "fr_FR": "Ping sur Zirk serveur"
+      }
+    }
   ],
-
+  "properties": [],
   "actions": [
     {
       "id": "Post",
-      "name": "Zirk Serv",
+      "name": "action Zirk Serv",
       "locale_name": {
         "fr_FR": "Post sur Zirk serv"
       }
     },
     {
       "id": "Click1",
-      "name": "Zirk click1",
+      "name": "action Zirk click1",
       "locale_name": {
         "fr_FR": "Click sur Zirk serveur"
       }
     },
     {
       "id": "Click2",
-      "name": "Zirk click2",
+      "name": "action Zirk click2",
       "locale_name": {
         "fr_FR": "Click sur Zirk serveur"
       }
     },
     {
       "id": "Shake",
-      "name": "Zirk shake",
+      "name": "action Zirk shake",
       "locale_name": {
         "fr_FR": "Shake sur Zirk serveur"
       }
     },
     {
+      "id": "StateChange",
+      "name": "action State Change",
+      "locale_name": {
+        "fr_FR": "Change la page 1"
+      }
+    },
+    {
       "id": "Ping",
-      "name": "Zirk ping",
+      "name": "action Zirk ping",
       "locale_name": {
         "fr_FR": "Ping sur Zirk serveur"
       }
     },
-	{
+    {
       "id": "SendChoice",
-      "name": "Send choice",
+      "name": "action Send choice",
       "locale_name": {
         "fr_FR": "Envoyer selection"
       }
     }
-   ]
-
+  ]
 }

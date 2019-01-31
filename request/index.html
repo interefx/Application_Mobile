@@ -39,7 +39,6 @@
 			var req = new XMLHttpRequest();
 			req.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
-					ping(url);
 					info = JSON.parse(req.responseText)["token"];
 					if (info["moduleId"] != undefined) {
 						if (moduleId == 1) {}
@@ -58,6 +57,7 @@
 			console.log(req.responseText);
 			PandaBridge.send(name);
 		}
+
 		/*function postFaction(url, name)
 		{
 			var req = new XMLHttpRequest();
@@ -88,34 +88,27 @@
 
 
 		PandaBridge.init(function () {
+			
 			PandaBridge.onLoad(function (pandaData) {
 				document.getElementById('div1').innerHTML = "loading";
 				postReq(urlApi + '/login', 'PostRequest');
 			});
-
-			/*PandaBridge.listen('Faction', function (event) {
-				if (this.readyState == 4 && this.status == 403) {
-					postReq(urlApi + '/login', 'PostRequest');
-				}
-				else {
-				document.getElementById('div1').innerHTML = "loading";
-					postClick(urlApi + '/faction?token=' + token, 'PostRequest');
-			}
-			});*/
-
 			PandaBridge.listen('Ping', function (event) {
 				if (this.readyState == 4 && this.status == 403) {
 					postReq(urlApi + '/login', 'PostRequest');
 				}
 				else {
 					document.getElementById('div1').innerHTML = "loading";
-					postClick(urlApi + '/ping?token=' + token, 'pingRequest');
+					ping(urlApi + '/ping?token=' + token, 'pingRequest');
 				}
 			});
 
+
 			PandaBridge.listen('Click1', function (event) {
+				PandaBridge.send('StateChange');
 				if (this.readyState == 4 && this.status == 403) {
 					postReq(urlApi + '/login', 'PostRequest');
+					PandaBridge.send('PostReq');
 				}
 				else {
 					clickId = 1;
@@ -136,11 +129,6 @@
 			});
 
 			PandaBridge.listen('Shake', function (event) {
-
-				//check if shake is supported or not.
-				if (!("ondevicemotion" in window)) {
-					alert("Not Supported");
-				}
 				
 				var shakeEvent = new Shake({ threshold: 15 });
 				shakeEvent.start();
@@ -159,6 +147,11 @@
 				//stop listening
 				function stopShake() {
 					shakeEvent.stop();
+				}
+				
+				//check if shake is supported or not.
+				if (!("ondevicemotion" in window)) {
+					alert("Not Supported");
 				}
 			});
 		});
