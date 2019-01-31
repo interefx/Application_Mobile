@@ -10,11 +10,33 @@
 		var urlApi = "http://93.118.34.39:3434";
 		//var urlApi = "http://interefx.zirk.eu";
 		//var urlApi = "http://192.168.43.22:8000";
+		var token = null;
 		var storageKey = null;
 		var nbDroneSelected = 0;
 
 		function postReq(url, name) {
 			var req = new XMLHttpRequest();
+			req.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					document.getElementById("div2").innerHTML = this.responseText;
+					token = JSON.parse(req.responseText)["token"];
+					document.getElementById("div2").innerHTML = token;
+				}
+			}
+			req.open("POST", url, false);
+			req.send(null);
+			console.log(req.responseText);
+			//document.getElementById('div2').innerHTML = req.responseText;
+			PandaBridge.send(name);
+		}
+
+		function postClick(url, name) {
+			var req = new XMLHttpRequest();
+			req.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					document.getElementById("div3").innerHTML = this.responseText;
+				}
+			}
 			req.open("POST", url, false);
 			req.send(null);
 			console.log(req.responseText);
@@ -24,13 +46,18 @@
 
 		PandaBridge.init(function () {
 			PandaBridge.onLoad(function (pandaData) {
-
-			});
-
-			PandaBridge.listen('Post', function (event) {
 				document.getElementById('div1').innerHTML = "loading";
 				postReq(urlApi + '/login', 'PostRequest');
+			});
 
+			PandaBridge.listen('Click', function (event) {
+				if (this.readyState == 4 && this.status == 403) {
+					postReq(urlApi + '/login', 'PostRequest');
+				}
+				else {
+				document.getElementById('div1').innerHTML = "loading";
+					postClick(urlApi + '/click?token=' + token, 'PostRequest');
+			}
 			});
 		});
 
@@ -45,6 +72,7 @@
 	<div id="div2">
 	</div>
 	<div id="div3">
+		In token
 	</div>
 	<div id="div3b">
 	</div>

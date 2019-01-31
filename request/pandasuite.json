@@ -16,7 +16,14 @@
       "locale_name": {
         "fr_FR": "Post sur Zirk serv"
       }
-    }
+    },
+    {
+      "id": "ClickRequest",
+      "name": "click on Zirk serveur",
+      "locale_name": {
+        "fr_FR": "Click sur Zirk servur"
+      }
+     }
   ],
 
   "properties": [
@@ -29,6 +36,13 @@
       "name": "Zirk Serv",
       "locale_name": {
         "fr_FR": "Post sur Zirk serv"
+      }
+    },
+    {
+      "id": "Click",
+      "name": "click on Zirk serveur",
+      "locale_name": {
+        "fr_FR": "Click sur Zirk serveur"
       }
     },
 	{
