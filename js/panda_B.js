@@ -23,7 +23,7 @@ document.getElementById('div3').innerHTML = "start arrayDrones[ " + index + " ] 
   {
     document.getElementById(iddiv).innerHTML = "cannot select " + name ;
   }
-  document.getElementById('div3b').innerHTML = "end arrayDrones[ " + index + " ] : " + arrayDrones[index] ;
+  document.getElementById('div4').innerHTML = "end arrayDrones[ " + index + " ] : " + arrayDrones[index] ;
 document.getElementById('div2').innerHTML = "end process, nbDroneSelected  : " + nbDroneSelected;
 }
 
