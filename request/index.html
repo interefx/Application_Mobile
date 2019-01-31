@@ -141,6 +141,7 @@
 						postReq(urlApi + '/login', 'PostRequest');
 					}
 					else {
+						clickId = 0;
 						document.getElementById('div1').innerHTML = "loading";
 						postClick(urlApi + '/shake?token=' + token + "&clickId" + clickId, 'ShakeRequest');
 					}
