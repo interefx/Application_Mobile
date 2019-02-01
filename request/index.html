@@ -25,9 +25,8 @@
 /*					document.getElementById("div2").innerHTML = this.responseText;*/
 					token = JSON.parse(req.responseText)["token"];
 					document.getElementById("div2").innerHTML = token;
-//					intervalId = setInterval(ping, 300, urlApi);
 				} else {
-//					document.getElementById("div2").innerHTML = "Connection Error";
+					document.getElementById("div2").innerHTML = "Connection Error";
 				}
 			}
 			req.open("POST", url, false);
@@ -44,22 +43,17 @@
 				if (this.readyState == 4 && this.status == 200) {
 					info = JSON.parse(req.responseText);
 					moduleId = info["data"];
-						if (moduleId != undefined) {
-						if (moduleId == 0) { PandaBridge.send('StateChangeMainRequest'); }
-						if (moduleId == -1) { PandaBridge.send('StateChangeDefault'); }
-						if (moduleId == 1) { PandaBridge.send('StateChangeChoiceRequest'); }
-						if (moduleId == 2) { PandaBridge.send('StateChangeOkChoiceRequest'); }
-						if (moduleId == 3) { PandaBridge.send('StateChangeNoChoiceRequest'); }
-						if (moduleId == 4) { PandaBridge.send('StateChangeShakeRequest'); }
-						if (moduleId == 5) { PandaBridge.send('StateChangeOkShakeRequest'); }
-						if (moduleId == 6) { PandaBridge.send('StateChangeNoShakeRequest'); }
-						if (moduleId == 7) { PandaBridge.send('StateChangeCreditsRequest'); }
+					document.getElementById('div2').innerHTML = req.responseText + ' / ' + moduleId;
+					if (moduleId != undefined) {
+						if (moduleId == '0') { PandaBridge.send('StateChangeSpamRequest'); }
+						else if (moduleId == '1') { PandaBridge.send('StateChangeChoiceRequest'); }
+						else { PandaBridge.send('StateChangeDefaultRequest'); }
 					}
+					else { PandaBridge.send('StateChangeDefaultRequest'); }
 				}
 			}
 			req.open("GET", url + '/ping', false);
 			req.send(null);
-			//console.log(req.responseText);
 			PandaBridge.send(name);
 		}
 
@@ -95,8 +89,8 @@
 		PandaBridge.init(function () {
 
 			PandaBridge.onLoad(function (pandaData) {
-/*				document.getElementById('div1').innerHTML = "loading";*/
-				postReq(urlApi + '/login', 'PostRequest');
+					postReq(urlApi + '/login', 'PostRequest');
+				intervalId = setInterval(ping, 300, urlApi);
 			});
 
 			PandaBridge.listen('Ping', function (event) {
@@ -118,7 +112,7 @@
 				else {
 					clickId = 1;
 /*					document.getElementById('div1').innerHTML = "loading";*/
-					postClick(urlApi + '/click?token=' + token + '&clickId=' + clickId, 'ClickRequest1');
+					postClick(urlApi + '/click?token=' + token + '&clickId=1', 'ClickRequest1');
 				}
 			});
 
@@ -129,7 +123,7 @@
 				else {
 					clickId = 0;
 /*					document.getElementById('div1').innerHTML = "loading";*/
-					postClick(urlApi + '/click?token=' + token + "&clickId=" + clickId, 'ClickRequest2');
+					postClick(urlApi + '/click?token=' + token + "&clickId=0", 'ClickRequest2');
 				}
 			});
 
