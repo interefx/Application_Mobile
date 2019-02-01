@@ -24,8 +24,10 @@
 				if (this.readyState == 4 && this.status == 200) {
 /*					document.getElementById("div2").innerHTML = this.responseText;*/
 					token = JSON.parse(req.responseText)["token"];
-					//intervalId = setInterval(ping, 300, url);
-/*					document.getElementById("div2").innerHTML = token;*/
+//					document.getElementById("div2").innerHTML = token;
+//					intervalId = setInterval(ping, 300, urlApi);
+				} else {
+//					document.getElementById("div2").innerHTML = "Connection Error";
 				}
 			}
 			req.open("POST", url, false);
@@ -40,8 +42,9 @@
 			var req = new XMLHttpRequest();
 			req.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
-					info = JSON.parse(req.responseText)["token"];
-					if (info["moduleId"] != undefined) {
+					info = JSON.parse(req.responseText);
+					moduleId = info["data"];
+						if (moduleId != undefined) {
 						if (moduleId == 0) { PandaBridge.send('StateChangeMainRequest'); }
 						if (moduleId == -1) { PandaBridge.send('StateChangeDefault'); }
 						if (moduleId == 1) { PandaBridge.send('StateChangeChoiceRequest'); }
@@ -52,12 +55,9 @@
 						if (moduleId == 6) { PandaBridge.send('StateChangeNoShakeRequest'); }
 						if (moduleId == 7) { PandaBridge.send('StateChangeCreditsRequest'); }
 					}
-				} else if (this.readyState == 4) {
-					token = null;
-					clearInterval(intervalId);
 				}
 			}
-			req.open("GET", url + '/ping?token=' + token, false);
+			req.open("GET", url + '/ping', false);
 			req.send(null);
 			//console.log(req.responseText);
 			PandaBridge.send(name);
