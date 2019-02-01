@@ -15,21 +15,22 @@
 		var storageKey = null;
 		var nbDroneSelected = 0;
 		var intervalId;
+		var shakeEvent = null;
 		var clickId = null;
 
 		function postReq(url, name) {
 			var req = new XMLHttpRequest();
 			req.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
-					document.getElementById("div2").innerHTML = this.responseText;
+/*					document.getElementById("div2").innerHTML = this.responseText;*/
 					token = JSON.parse(req.responseText)["token"];
 					//intervalId = setInterval(ping, 300, url);
-					document.getElementById("div2").innerHTML = token;
+/*					document.getElementById("div2").innerHTML = token;*/
 				}
 			}
 			req.open("POST", url, false);
 			req.send(null);
-			console.log(req.responseText);
+			//console.log(req.responseText);
 			//document.getElementById('div2').innerHTML = req.responseText;
 			PandaBridge.send(name);
 		}
@@ -58,7 +59,7 @@
 			}
 			req.open("GET", url + '/ping?token=' + token, false);
 			req.send(null);
-			console.log(req.responseText);
+			//console.log(req.responseText);
 			PandaBridge.send(name);
 		}
 
@@ -80,13 +81,13 @@
 			var req = new XMLHttpRequest();
 			req.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
-					document.getElementById("div3").innerHTML = url;
+/*					document.getElementById("div3").innerHTML = url;*/
 				}
 			}
 			req.open("POST", url, false);
 			req.send(null);
-			console.log(req.responseText);
-			document.getElementById('div2').innerHTML = req.responseText;
+			//console.log(req.responseText);
+/*			document.getElementById('div2').innerHTML = req.responseText;*/
 			PandaBridge.send(name);
 		}
 
@@ -94,11 +95,8 @@
 		PandaBridge.init(function () {
 
 			PandaBridge.onLoad(function (pandaData) {
-				document.getElementById('div1').innerHTML = "loading";
+/*				document.getElementById('div1').innerHTML = "loading";*/
 				postReq(urlApi + '/login', 'PostRequest');
-				var shakeEvent = new Shake({ threshold: 15 });
-				shakeEvent.start;
-				shakeEvent.addEventListener('shake', function () { alert("Shaking"); }, false);
 			});
 
 			PandaBridge.listen('Ping', function (event) {
@@ -106,7 +104,7 @@
 					postReq(urlApi + '/login', 'PostRequest');
 				}
 				else {
-					document.getElementById('div1').innerHTML = "loading";
+/*					document.getElementById('div1').innerHTML = "loading";*/
 					ping(urlApi + '/ping?token=' + token, 'pingRequest');
 				}
 			});
@@ -119,7 +117,7 @@
 				}
 				else {
 					clickId = 1;
-					document.getElementById('div1').innerHTML = "loading";
+/*					document.getElementById('div1').innerHTML = "loading";*/
 					postClick(urlApi + '/click?token=' + token + '&clickId=' + clickId, 'ClickRequest1');
 				}
 			});
@@ -130,22 +128,22 @@
 				}
 				else {
 					clickId = 0;
-					document.getElementById('div1').innerHTML = "loading";
+/*					document.getElementById('div1').innerHTML = "loading";*/
 					postClick(urlApi + '/click?token=' + token + "&clickId=" + clickId, 'ClickRequest2');
 				}
 			});
 
 			PandaBridge.listen('Shake', function (event) {
 				//check if shake is supported or not.
-				var shakeEvent = new Shake({ threshold: 15 });
-				shakeEvent.start;
-				shakeEvent.addEventListener('shake', function () {
-					alert("Shaking");
+				shakeEvent = new Shake({ threshold: 15 });
+				shakeEvent.start();
+				shakeEvent.addEventListener('shake', function() {
 					if (this.readyState == 4 && this.status == 403) {
 						postReq(urlApi + '/login', 'PostRequest');
 					}
 					else {
-						document.getElementById('div1').innerHTML = "loading";
+						clickId = 1;
+/*						document.getElementById('div1').innerHTML = "loading";*/
 						postClick(urlApi + '/click?token=' + token + "&clickId" + clickId, 'ShakeRequest');
 					}
 
@@ -158,8 +156,7 @@
 
 				//check if shake is supported or not.
 				if (!("ondevicemotion" in window)) {
-					alert("Not Supported");
-				}
+					alert("Not Supported");}
 			});
 		});
 
@@ -168,13 +165,13 @@
 
 <body style="color:white">
 	<div id="div1">
-		Waiting for load
-		<button onclick="postReq(urlApi + '/login', 'PostRequest')" />
+<!-- 		Waiting for load
+		<button onclick="postReq(urlApi + '/login', 'PostRequest')" /> -->
 	</div>
 	<div id="div2">
 	</div>
 	<div id="div3">
-		In token
+		<!-- In token -->
 	</div>
 	<div id="div3b">
 	</div>
