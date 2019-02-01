@@ -24,7 +24,7 @@
 				if (this.readyState == 4 && this.status == 200) {
 /*					document.getElementById("div2").innerHTML = this.responseText;*/
 					token = JSON.parse(req.responseText)["token"];
-//					document.getElementById("div2").innerHTML = token;
+					document.getElementById("div2").innerHTML = token;
 //					intervalId = setInterval(ping, 300, urlApi);
 				} else {
 //					document.getElementById("div2").innerHTML = "Connection Error";
